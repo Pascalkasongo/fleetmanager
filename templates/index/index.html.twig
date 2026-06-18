@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Tailwind</title>
+
+  <!-- Tailwind CDN (simple pour test / dev) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Option: config Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4f46e5'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-primary">Fleet manager</h1>
+
+      <nav class="space-x-6 hidden md:block relative">
+
+  <a href="#" class="hover:text-primary">Accueil</a>
+
+  <!-- Dropdown Flottes -->
+  <div class="inline-block relative group">
+
+    <button class="hover:text-primary flex items-center gap-1">
+      Flottes
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+
+    <!-- Sous-menu -->
+    <div class="absolute left-0 mt-2 w-48 bg-white border rounded-lg shadow-lg
+                opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                transition-all duration-200 z-50">
+
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100">
+        Liste des flottes
+      </a>
+
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100">
+        Ajouter une flotte
+      </a>
+
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100">
+        Véhicules
+      </a>
+
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100">
+        Maintenance
+      </a>
+
+    </div>
+  </div>
+
+  <a href="#" class="hover:text-primary">Dashboard</a>
+  <a href="#" class="hover:text-primary">Affectation</a>
+
+</nav>
+
+      <button class="md:hidden px-3 py-2 border rounded">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-4 py-16 text-center">
+    <h2 class="text-4xl font-bold mb-4">
+      Bienvenue sur ton Dashboard
+    </h2>
+
+    <p class="text-gray-600 mb-6">
+      Une interface moderne construite avec Tailwind CSS, rapide et responsive.
+    </p>
+
+    <button class="bg-primary text-white px-6 py-3 rounded-lg shadow hover:bg-indigo-600 transition">
+      Commencer
+    </button>
+  </section>
+
+  <!-- Cards -->
+  <section class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6">
+
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h3 class="font-bold text-lg mb-2">Flotte</h3>
+      <p class="text-gray-600">Gerer efficacement la flotte</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h3 class="font-bold text-lg mb-2">Statistiques</h3>
+      <p class="text-gray-600">Analyse tes données en temps réel.</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h3 class="font-bold text-lg mb-2">Paramètres</h3>
+      <p class="text-gray-600">Configure ton application en quelques clics.</p>
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-16 bg-white border-t">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-center text-gray-500">
+      © 2026 Fleet manager. Tous droits réservés.
+    </div>
+  </footer>
+
+</body>
+</html>
