@@ -1,0 +1,139 @@
+{% include 'index/header.html.twig' %}
+
+{% block body %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- En-tête -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">
+                Gestion des affectations
+            </h1>
+            <p class="mt-1 text-sm text-gray-500">
+                Consultez et gérez les affectations des chauffeurs et des véhicules.
+            </p>
+        </div>
+
+        <a href="{{ path('app_affectation_new') }}"
+           class="inline-flex items-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-indigo-700 transition">
+            + Nouvelle affectation
+        </a>
+    </div>
+
+    <!-- Tableau -->
+    <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow">
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase text-gray-500">
+                            ID
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase text-gray-500">
+                            Chauffeur
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase text-gray-500">
+                            Véhicule
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase text-gray-500">
+                            Motif
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase text-gray-500">
+                            Début
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase text-gray-500">
+                            Fin
+                        </th>
+
+                        <th class="px-6 py-3 text-right text-xs font-semibold uppercase text-gray-500">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="divide-y divide-gray-100 bg-white">
+
+                {% for affectation in affectations %}
+                    <tr class="hover:bg-gray-50 transition">
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ affectation.id }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                            {{ affectation.chauffeur.nom }}
+                            {{ affectation.chauffeur.prenom }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <span class="inline-flex rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700">
+                                {{ affectation.vehicule.immatriculation }}
+                            </span>
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ affectation.motif }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ affectation.dateDebut ? affectation.dateDebut|date('d/m/Y') : '-' }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ affectation.dateFin ? affectation.dateFin|date('d/m/Y') : '-' }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <div class="flex justify-end gap-2">
+
+                                <a href="{{ path('app_affectation_show', {'id': affectation.id}) }}"
+                                   class="rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
+                                    Voir
+                                </a>
+
+                                <a href="{{ path('app_affectation_edit', {'id': affectation.id}) }}"
+                                   class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition">
+                                    Modifier
+                                </a>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="px-6 py-12 text-center">
+
+                            <h3 class="text-lg font-semibold text-gray-700">
+                                Aucune affectation trouvée
+                            </h3>
+
+                            <p class="mt-2 text-sm text-gray-500">
+                                Crée une première affectation pour commencer.
+                            </p>
+
+                            <a href="{{ path('app_affectation_new') }}"
+                               class="mt-4 inline-flex rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition">
+                                Ajouter une affectation
+                            </a>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

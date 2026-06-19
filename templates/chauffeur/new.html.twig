@@ -1,0 +1,129 @@
+{% include 'index/header.html.twig' %}
+
+{% block body %}
+{% set inputClass = 'w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200' %}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+
+    <!-- En-tête -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">
+            Ajouter un chauffeur
+        </h1>
+        <p class="mt-2 text-sm text-gray-500">
+            Renseignez les informations du chauffeur avant son affectation à un véhicule.
+        </p>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-8">
+
+        {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Nom -->
+            <div>
+                {{ form_label(form.nom, null, {
+                    'label_attr': {'class': 'block mb-2 text-sm font-semibold text-gray-700'}
+                }) }}
+                {{ form_widget(form.nom, {
+                    'attr': {
+                        'class': inputClass,
+                        'placeholder': 'Ex : Ilunga'
+                    }
+                }) }}
+                {{ form_errors(form.nom) }}
+            </div>
+
+            <!-- Prénom -->
+            <div>
+                {{ form_label(form.prenom, null, {
+                    'label_attr': {'class': 'block mb-2 text-sm font-semibold text-gray-700'}
+                }) }}
+                {{ form_widget(form.prenom, {
+                    'attr': {
+                        'class': inputClass,
+                        'placeholder': 'Ex : Pascal'
+                    }
+                }) }}
+                {{ form_errors(form.prenom) }}
+            </div>
+
+            <!-- Téléphone -->
+            <div>
+                {{ form_label(form.telephone, null, {
+                    'label_attr': {'class': 'block mb-2 text-sm font-semibold text-gray-700'}
+                }) }}
+                {{ form_widget(form.telephone, {
+                    'attr': {
+                        'class': inputClass,
+                        'placeholder': '+243 XXX XXX XXX'
+                    }
+                }) }}
+                {{ form_errors(form.telephone) }}
+            </div>
+
+            <!-- Numéro de permis -->
+            <div>
+                {{ form_label(form.numero_permi, null, {
+                    'label_attr': {'class': 'block mb-2 text-sm font-semibold text-gray-700'}
+                }) }}
+                {{ form_widget(form.numero_permi, {
+                    'attr': {
+                        'class': inputClass,
+                        'placeholder': 'Numéro du permis'
+                    }
+                }) }}
+                {{ form_errors(form.numero_permi) }}
+            </div>
+
+            <!-- Catégorie du permis -->
+            <div>
+                {{ form_label(form.categorie_permi, null, {
+                    'label_attr': {'class': 'block mb-2 text-sm font-semibold text-gray-700'}
+                }) }}
+                {{ form_widget(form.categorie_permi, {
+                    'attr': {
+                        'class': inputClass
+                    }
+                }) }}
+                {{ form_errors(form.categorie_permi) }}
+            </div>
+
+            <!-- Date d'expiration -->
+            <div>
+                {{ form_label(form.Date_expiration, null, {
+                    'label_attr': {'class': 'block mb-2 text-sm font-semibold text-gray-700'}
+                }) }}
+                {{ form_widget(form.Date_expiration, {
+                    'attr': {
+                        'class': inputClass
+                    }
+                }) }}
+                {{ form_errors(form.Date_expiration) }}
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-8 flex items-center justify-between border-t border-gray-200 pt-6">
+
+            <a href="{{ path('app_chauffeur_index') }}"
+               class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
+                Retour à la liste
+            </a>
+
+            <button type="submit"
+                    class="rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-medium text-white shadow hover:bg-indigo-700 transition">
+                Enregistrer le chauffeur
+            </button>
+
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+</div>
+{% endblock %}

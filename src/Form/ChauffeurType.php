@@ -3,31 +3,23 @@
 namespace App\Form;
 
 use App\Entity\Affectation;
-use App\Entity\Vehicule;
+use App\Entity\Chauffeur;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VehiculeType extends AbstractType
+class ChauffeurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type', ChoiceType::class, [
-    'choices' => [
-        'VL' => 'VL',
-        'PL' => 'PL',
-    ],
-    'expanded' => false,
-    'multiple' => false,
-])
-            ->add('immatriculation')
-            ->add('marque')
-            ->add('modele')
-            ->add('chassis')
-            ->add('carburan')
+            ->add('nom')
+            ->add('prenom')
+            ->add('telephone')
+            ->add('numero_permi')
+            ->add('categorie_permi')
+            ->add('Date_expiration')
             // ->add('affectation', EntityType::class, [
             //     'class' => Affectation::class,
             //     'choice_label' => 'id',
@@ -38,7 +30,7 @@ class VehiculeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Vehicule::class,
+            'data_class' => Chauffeur::class,
         ]);
     }
 }

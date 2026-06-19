@@ -1,0 +1,116 @@
+{% include 'index/header.html.twig' %}
+
+
+{% block body %}
+{% set inputClass = 'w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200' %}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+
+    <!-- En-tête -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">
+            Nouvelle affectation
+        </h1>
+        <p class="mt-2 text-sm text-gray-500">
+            Associez un chauffeur à un véhicule en indiquant le motif et la période.
+        </p>
+    </div>
+
+    <!-- Carte -->
+    <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-md">
+
+        {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+            <!-- Chauffeur -->
+            <div>
+                {{ form_label(form.chauffeur, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.chauffeur, {
+                    'attr': {'class': inputClass}
+                }) }}
+
+                {{ form_errors(form.chauffeur) }}
+            </div>
+
+            <!-- Véhicule -->
+            <div>
+                {{ form_label(form.vehicule, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.vehicule, {
+                    'attr': {'class': inputClass}
+                }) }}
+
+                {{ form_errors(form.vehicule) }}
+            </div>
+
+            <!-- Motif -->
+            <div class="md:col-span-2">
+                {{ form_label(form.motif, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.motif, {
+                    'attr': {
+                        'class': inputClass,
+                        'placeholder': 'Exemple : Mission, Livraison, Déplacement...'
+                    }
+                }) }}
+
+                {{ form_errors(form.motif) }}
+            </div>
+
+            <!-- Date début -->
+            <div>
+                {{ form_label(form.date_debut, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.date_debut, {
+                    'attr': {'class': inputClass}
+                }) }}
+
+                {{ form_errors(form.date_debut) }}
+            </div>
+
+            <!-- Date fin -->
+            <div>
+                {{ form_label(form.date_fin, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.date_fin, {
+                    'attr': {'class': inputClass}
+                }) }}
+
+                {{ form_errors(form.date_fin) }}
+            </div>
+
+        </div>
+
+        <!-- Boutons -->
+        <div class="mt-8 flex items-center justify-between border-t border-gray-200 pt-6">
+
+            <a href="{{ path('app_affectation_index') }}"
+               class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100">
+                Retour à la liste
+            </a>
+
+            <button type="submit"
+                    class="rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-medium text-white shadow transition hover:bg-indigo-700">
+                Enregistrer l'affectation
+            </button>
+
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+</div>
+{% endblock %}

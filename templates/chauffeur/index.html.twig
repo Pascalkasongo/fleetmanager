@@ -1,53 +1,50 @@
-
 {% include 'index/header.html.twig' %}
 
 {% block body %}
 <div class="max-w-7xl mx-auto px-4 py-8">
 
     <!-- En-tête -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <div>
             <h1 class="text-3xl font-bold text-gray-900">
-                Gestion des véhicules
+                Gestion des chauffeurs
             </h1>
             <p class="mt-1 text-sm text-gray-500">
-                Consultez et gérez l'ensemble des véhicules enregistrés.
+                Consultez et gérez les chauffeurs enregistrés dans le système.
             </p>
         </div>
 
-        <a href="{{ path('app_vehicule_new') }}"
-           class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-indigo-700 transition">
-            + Nouveau véhicule
+        <a href="{{ path('app_chauffeur_new') }}"
+           class="inline-flex items-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-indigo-700 transition">
+            + Ajouter un chauffeur
         </a>
     </div>
 
-    <!-- Carte -->
-    <div class="overflow-hidden rounded-xl bg-white shadow border border-gray-200">
+    <!-- Tableau -->
+    <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow">
 
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
+
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
                             ID
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                            Type
+                            Nom complet
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                            Immatriculation
+                            Téléphone
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                            Marque
+                            N° Permis
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                            Modèle
+                            Catégorie
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                            Châssis
-                        </th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                            Carburant
+                            Expiration
                         </th>
                         <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">
                             Actions
@@ -56,76 +53,88 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-100 bg-white">
-                {% for vehicule in vehicules %}
+
+                {% for chauffeur in chauffeurs %}
                     <tr class="hover:bg-gray-50 transition">
-                        <td class="px-6 py-4 text-sm text-gray-700">
-                            {{ vehicule.id }}
-                        </td>
 
                         <td class="px-6 py-4 text-sm text-gray-700">
-                            {{ vehicule.type }}
+                            {{ chauffeur.id }}
                         </td>
 
                         <td class="px-6 py-4">
-                            <span class="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700">
-                                {{ vehicule.immatriculation }}
+                            <div class="font-medium text-gray-900">
+                                {{ chauffeur.nom }} {{ chauffeur.prenom }}
+                            </div>
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ chauffeur.telephone }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ chauffeur.numeroPermi }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
+                                {{ chauffeur.categoriePermi }}
                             </span>
                         </td>
 
                         <td class="px-6 py-4 text-sm text-gray-700">
-                            {{ vehicule.marque }}
-                        </td>
-
-                        <td class="px-6 py-4 text-sm text-gray-700">
-                            {{ vehicule.modele }}
-                        </td>
-
-                        <td class="px-6 py-4 text-sm text-gray-700">
-                            {{ vehicule.chassis }}
-                        </td>
-
-                        <td class="px-6 py-4 text-sm text-gray-700">
-                            {{ vehicule.carburan }}
+                            {{ chauffeur.DateExpiration ? chauffeur.DateExpiration|date('d/m/Y') : '-' }}
                         </td>
 
                         <td class="px-6 py-4">
                             <div class="flex justify-end gap-2">
-                                <a href="{{ path('app_vehicule_show', {'id': vehicule.id}) }}"
+
+                                <a href="{{ path('app_chauffeur_show', {'id': chauffeur.id}) }}"
                                    class="rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
                                     Voir
                                 </a>
 
-                                <a href="{{ path('app_vehicule_edit', {'id': vehicule.id}) }}"
+                                <a href="{{ path('app_chauffeur_edit', {'id': chauffeur.id}) }}"
                                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition">
                                     Modifier
                                 </a>
+
                             </div>
                         </td>
+
                     </tr>
+
                 {% else %}
+
                     <tr>
-                        <td colspan="8" class="px-6 py-12 text-center">
+                        <td colspan="7" class="px-6 py-12 text-center">
+
                             <div class="flex flex-col items-center gap-2">
+
                                 <p class="text-lg font-medium text-gray-700">
-                                    Aucun véhicule trouvé
-                                </p>
-                                <p class="text-sm text-gray-500">
-                                    Ajoutez votre premier véhicule pour commencer.
+                                    Aucun chauffeur trouvé
                                 </p>
 
-                                <a href="{{ path('app_vehicule_new') }}"
-                                   class="mt-3 inline-flex rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition">
-                                    Créer un véhicule
+                                <p class="text-sm text-gray-500">
+                                    Commencez par ajouter votre premier chauffeur.
+                                </p>
+
+                                <a href="{{ path('app_chauffeur_new') }}"
+                                   class="mt-3 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition">
+                                    Ajouter un chauffeur
                                 </a>
+
                             </div>
+
                         </td>
                     </tr>
+
                 {% endfor %}
+
                 </tbody>
+
             </table>
         </div>
 
     </div>
-
 </div>
 {% endblock %}
