@@ -1,0 +1,210 @@
+{% include 'index/header.html.twig' %}
+
+{% block body %}
+
+<div class="p-6 bg-gray-100 min-h-screen">
+
+    <!-- Titre -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">
+            Tableau de bord analytique
+        </h1>
+        <p class="text-gray-500 mt-2">
+            Analyse des performances, maintenances et état de la flotte.
+        </p>
+    </div>
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+        <div class="bg-white rounded-2xl shadow p-6 border-l-4 border-blue-500">
+            <h3 class="text-gray-500 text-sm">Véhicules enregistrés</h3>
+            <p class="text-3xl font-bold mt-2">{{ totalVehicules }}</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-6 border-l-4 border-green-500">
+            <h3 class="text-gray-500 text-sm">Véhicules disponibles</h3>
+            <p class="text-3xl font-bold mt-2">{{ vehiculesDisponibles }}</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-6 border-l-4 border-orange-500">
+            <h3 class="text-gray-500 text-sm">Entretiens proches</h3>
+            <p class="text-3xl font-bold mt-2">{{ entretienProche }}</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h3 class="text-gray-500 text-sm">Entretiens dépassés</h3>
+            <p class="text-3xl font-bold mt-2">{{ entretienDepasse }}</p>
+        </div>
+
+    </div>
+
+    <!-- Analyses -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+        <!-- Véhicules à surveiller -->
+        <div class="bg-white rounded-2xl shadow p-6">
+
+            <h2 class="text-lg font-bold mb-4 text-gray-800">
+                Véhicules nécessitant une attention
+            </h2>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                    <tr class="border-b">
+                        <th class="text-left py-3">Immatriculation</th>
+                        <th class="text-left py-3">Km restant</th>
+                        <th class="text-left py-3">Statut</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for suivi in suivis %}
+
+                        <tr class="border-b hover:bg-gray-50">
+
+                            <td class="py-3">
+                                {{ suivi.vehicule.immatriculation }}
+                            </td>
+
+                            <td class="py-3">
+                               1000 km
+                            </td>
+
+                            {# <td class="py-3">
+
+                                {% if suivi.ecart < 0 %}
+                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs">
+                                        Dépassé
+                                    </span>
+
+                                {% elseif suivi.ecart <= 500 %}
+                                    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs">
+                                        Proche
+                                    </span>
+
+                                {% elseif suivi.ecart < 1000 %}
+                                    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs">
+                                        À surveiller
+                                    </span>
+
+                                {% else %}
+                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs">
+                                        Normal
+                                    </span>
+                                {% endif %} #}
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- Coûts maintenance -->
+        <div class="bg-white rounded-2xl shadow p-6">
+
+            <h2 class="text-lg font-bold mb-4 text-gray-800">
+                Coût de maintenance par véhicule
+            </h2>
+
+            <div class="space-y-4">
+
+                {% for item in coutsMaintenance %}
+
+                    <div>
+
+                        <div class="flex justify-between mb-1">
+                            <span>{{ item.immatriculation }}</span>
+                            <span class="font-bold">
+                                {{ item.total }} $
+                            </span>
+                        </div>
+
+                        <div class="h-3 bg-gray-200 rounded-full">
+                            <div
+                                class="h-3 bg-indigo-600 rounded-full"
+                                style="width: {{ item.pourcentage }}%">
+                            </div>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Top véhicules -->
+    <div class="bg-white rounded-2xl shadow p-6">
+
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-bold text-gray-800">
+                Top véhicules les plus en panne
+            </h2>
+        </div>
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full">
+
+                <thead>
+                <tr class="border-b">
+                    <th class="text-left py-3">#</th>
+                    <th class="text-left py-3">Immatriculation</th>
+                    <th class="text-left py-3">Marque</th>
+                    <th class="text-left py-3">Nombre de pannes</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for vehicule in topPannes %}
+
+                    <tr class="border-b hover:bg-gray-50">
+
+                        <td class="py-3">
+                            {{ loop.index }}
+                        </td>
+
+                        <td class="py-3">
+                            {{ vehicule.immatriculation }}
+                        </td>
+
+                        <td class="py-3">
+                            {{ vehicule.marque }}
+                        </td>
+
+                        <td class="py-3">
+
+                            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full">
+                                {{ vehicule.nbPannes }}
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

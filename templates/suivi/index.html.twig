@@ -79,13 +79,21 @@
 
                         <td class="px-6 py-4">
                             
-                            {% if ecart >0 %}
+                            {% if ecart >1000 %}
                                 <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
                                     normal
                                 </span>
-                            {% elseif ecart < 0 %}
+                            {% elseif ecart >500  and ecart < 1000   %}
                                 <span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-700">
-                                    ne dispatcher pas ce vehicule
+                                   à surveiller
+                                </span>
+                                {% elseif ecart >0  and ecart < 500   %}
+                                <span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-700">
+                                   à surveiller
+                                </span>
+                                 {% elseif ecart < 0 %}
+                                <span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-700">
+                                   Entretien dejà depassé
                                 </span>
                             {% endif %}
                         </td>
