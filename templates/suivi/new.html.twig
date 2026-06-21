@@ -1,0 +1,78 @@
+{% include 'index/header.html.twig' %}
+
+{% set inputClass = 'w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition' %}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+
+    <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-md">
+
+        {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Véhicule -->
+            <div>
+                {{ form_label(form.vehicule, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.vehicule, {
+                    'attr': {'class': inputClass}
+                }) }}
+
+                {{ form_errors(form.vehicule) }}
+            </div>
+
+            <!-- Kilométrage actuel -->
+            <div>
+                {{ form_label(form.kilometrage_actuel, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.kilometrage_actuel, {
+                    'attr': {
+                        'class': inputClass,
+                        'placeholder': 'Ex : 45250'
+                    }
+                }) }}
+
+                {{ form_errors(form.kilometrage_actuel) }}
+            </div>
+               
+            <!-- Date -->
+            <div>
+                {{ form_label(form.date, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.date, {
+                    'attr': {'class': inputClass}
+                }) }}
+
+                {{ form_errors(form.date) }}
+            </div>
+
+            
+
+
+        </div>
+
+        <div class="mt-8 flex items-center justify-between border-t border-gray-200 pt-6">
+
+            <a href="{{ path('app_suivi_index') }}"
+               class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
+                Retour à la liste
+            </a>
+
+            <button type="submit"
+                    class="rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-medium text-white shadow hover:bg-indigo-700 transition">
+                Enregistrer le suivi
+            </button>
+
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+</div>

@@ -1,0 +1,140 @@
+
+{% include 'index/header.html.twig' %}
+
+{% block body %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- En-tête -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">
+                Suivi des véhicules
+            </h1>
+            <p class="mt-2 text-sm text-gray-500">
+                Consultez l'évolution du kilométrage et l'état de suivi de votre flotte.
+            </p>
+        </div>
+
+        <a href="{{ path('app_suivi_new') }}"
+           class="inline-flex items-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-indigo-700 transition">
+            + Nouveau suivi
+        </a>
+    </div>
+
+    <!-- Tableau -->
+    <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md">
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            ID
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Kilométrage actuel
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Date
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                           Prochain entretien
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Écart
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Statut
+                        </th>
+                        <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="divide-y divide-gray-100 bg-white">
+
+                {% for suivi in suivis %}
+                    <tr class="hover:bg-gray-50 transition">
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ suivi.id }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                            {{ suivi.kilometrageActuel }} km
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ suivi.date ? suivi.date|date('d/m/Y') : '-' }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ suivi.prochainEntretien}}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {% set ecart = suivi.prochainEntretien - suivi.kilometrageActuel %}
+                            {{ecart}}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            
+                            {% if ecart >0 %}
+                                <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+                                    normal
+                                </span>
+                            {% elseif ecart < 0 %}
+                                <span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-700">
+                                    ne dispatcher pas ce vehicule
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <div class="flex justify-end gap-2">
+
+                                <a href="{{ path('app_suivi_show', {'id': suivi.id}) }}"
+                                   class="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
+                                    Voir
+                                </a>
+
+                                <a href="{{ path('app_suivi_edit', {'id': suivi.id}) }}"
+                                   class="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition">
+                                    Modifier
+                                </a>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-12 text-center">
+
+                            <h3 class="text-lg font-semibold text-gray-700">
+                                Aucun suivi enregistré
+                            </h3>
+
+                            <p class="mt-2 text-sm text-gray-500">
+                                Ajoutez un premier enregistrement de suivi pour commencer à surveiller votre flotte.
+                            </p>
+
+                            <a href="{{ path('app_suivi_new') }}"
+                               class="mt-4 inline-flex rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition">
+                                Ajouter un suivi
+                            </a>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+

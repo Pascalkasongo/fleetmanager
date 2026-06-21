@@ -1,0 +1,144 @@
+{% include 'index/header.html.twig' %}
+
+{% block body %}
+
+{% set inputClass = 'w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition' %}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">
+            Nouvelle maintenance
+        </h1>
+        <p class="mt-2 text-sm text-gray-500">
+            Enregistrer une opération de maintenance ou d’entretien sur un véhicule.
+        </p>
+    </div>
+
+    <!-- Card -->
+    <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-md">
+
+        {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Véhicule -->
+            <div>
+                {{ form_label(form.vehicule, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.vehicule, {
+                    'attr': {'class': inputClass}
+                }) }}
+
+                {{ form_errors(form.vehicule) }}
+            </div>
+
+            <!-- Type -->
+            <div>
+                {{ form_label(form.type, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.type, {
+                    'attr': {'class': inputClass, 'placeholder': 'Vidange, Révision, Freins...'}
+                }) }}
+
+                {{ form_errors(form.type) }}
+            </div>
+
+            <!-- Date -->
+            <div>
+                {{ form_label(form.date, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.date, {
+                    'attr': {'class': inputClass}
+                }) }}
+
+                {{ form_errors(form.date) }}
+            </div>
+
+            <!-- Kilométrage -->
+            <div>
+                {{ form_label(form.kilometrage, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.kilometrage, {
+                    'attr': {'class': inputClass, 'placeholder': 'Ex: 45000'}
+                }) }}
+
+                {{ form_errors(form.kilometrage) }}
+            </div>
+
+            <!-- Coût -->
+            <div>
+                {{ form_label(form.cout, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.cout, {
+                    'attr': {'class': inputClass, 'placeholder': 'Ex: 150 USD'}
+                }) }}
+
+                {{ form_errors(form.cout) }}
+            </div>
+
+            <!-- Prochain entretien -->
+            <div>
+                {{ form_label(form.prochain_entretien, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.prochain_entretien, {
+                    'attr': {'class': inputClass}
+                }) }}
+
+                {{ form_errors(form.prochain_entretien) }}
+            </div>
+
+            <!-- Description -->
+            <div class="md:col-span-2">
+                {{ form_label(form.description, null, {
+                    'label_attr': {'class': 'mb-2 block text-sm font-semibold text-gray-700'}
+                }) }}
+
+                {{ form_widget(form.description, {
+                    'attr': {
+                        'class': inputClass,
+                        'rows': 4,
+                        'placeholder': 'Détails de la maintenance...'
+                    }
+                }) }}
+
+                {{ form_errors(form.description) }}
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-8 flex items-center justify-between border-t border-gray-200 pt-6">
+
+            <a href="{{ path('app_maintenance_index') }}"
+               class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
+                Retour
+            </a>
+
+            <button type="submit"
+                    class="rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-medium text-white shadow hover:bg-indigo-700 transition">
+                Enregistrer
+            </button>
+
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+</div>
+
+{% endblock %}

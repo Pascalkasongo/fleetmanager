@@ -1,0 +1,155 @@
+{% include 'index/header.html.twig' %}
+
+{% block body %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- En-tête -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">
+                Gestion des maintenances
+            </h1>
+            <p class="mt-2 text-sm text-gray-500">
+                Consultez et gérez l'ensemble des opérations de maintenance de votre flotte.
+            </p>
+        </div>
+
+        <a href="{{ path('app_maintenance_new') }}"
+           class="inline-flex items-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-indigo-700 transition">
+            + Nouvelle maintenance
+        </a>
+    </div>
+
+    <!-- Tableau -->
+    <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow">
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            ID
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Date
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Véhicule
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Kilométrage
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Type
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Coût
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Description
+                        </th>
+
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Prochain entretien
+                        </th>
+
+                        <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="divide-y divide-gray-100 bg-white">
+
+                {% for maintenance in maintenances %}
+                    <tr class="hover:bg-gray-50 transition">
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ maintenance.id }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ maintenance.date ? maintenance.date|date('d/m/Y') : '-' }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                            {{ maintenance.vehicule.immatriculation ?? '-' }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ maintenance.kilometrage }} km
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
+                                {{ maintenance.type }}
+                            </span>
+                        </td>
+
+                        <td class="px-6 py-4 text-sm font-semibold text-green-600">
+                            {{ maintenance.cout }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ maintenance.description }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ maintenance.prochainEntretien  }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <div class="flex justify-end gap-2">
+
+                                <a href="{{ path('app_maintenance_show', {'id': maintenance.id}) }}"
+                                   class="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
+                                    Voir
+                                </a>
+
+                                <a href="{{ path('app_maintenance_edit', {'id': maintenance.id}) }}"
+                                   class="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition">
+                                    Modifier
+                                </a>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="9" class="px-6 py-12 text-center">
+
+                            <h3 class="text-lg font-semibold text-gray-700">
+                                Aucune maintenance enregistrée
+                            </h3>
+
+                            <p class="mt-2 text-sm text-gray-500">
+                                Commencez par ajouter une opération de maintenance pour votre flotte.
+                            </p>
+
+                            <a href="{{ path('app_maintenance_new') }}"
+                               class="mt-4 inline-flex rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition">
+                                Ajouter une maintenance
+                            </a>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+

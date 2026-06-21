@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VehiculeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VehiculeRepository::class)]
@@ -33,6 +35,20 @@ class Vehicule
 
     #[ORM\ManyToOne(inversedBy: 'vehicule')]
     private ?Affectation $affectation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'vehicule')]
+    private ?Maintenance $maintenance = null;
+
+    /**
+     * @var Collection<int, Suivi>
+     */
+    #[ORM\OneToMany(targetEntity: Suivi::class, mappedBy: 'vehicule')]
+    private Collection $suivis;
+
+    public function __construct()
+    {
+        $this->suivis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +135,48 @@ class Vehicule
     public function setAffectation(?Affectation $affectation): static
     {
         $this->affectation = $affectation;
+
+        return $this;
+    }
+
+    public function getMaintenance(): ?Maintenance
+    {
+        return $this->maintenance;
+    }
+
+    public function setMaintenance(?Maintenance $maintenance): static
+    {
+        $this->maintenance = $maintenance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Suivi>
+     */
+    public function getSuivis(): Collection
+    {
+        return $this->suivis;
+    }
+
+    public function addSuivi(Suivi $suivi): static
+    {
+        if (!$this->suivis->contains($suivi)) {
+            $this->suivis->add($suivi);
+            $suivi->setVehicule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSuivi(Suivi $suivi): static
+    {
+        if ($this->suivis->removeElement($suivi)) {
+            // set the owning side to null (unless already changed)
+            if ($suivi->getVehicule() === $this) {
+                $suivi->setVehicule(null);
+            }
+        }
 
         return $this;
     }

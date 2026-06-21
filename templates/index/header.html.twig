@@ -31,7 +31,7 @@
 
       <nav class="space-x-6 hidden md:block relative">
 
-  <a href="#" class="hover:text-primary">Accueil</a>
+  <a href="{{ path('app_index') }}" class="hover:text-primary">Accueil</a>
 
   <!-- Dropdown Flottes -->
   <div class="inline-block relative group">
@@ -49,8 +49,8 @@
                 opacity-0 invisible group-hover:opacity-100 group-hover:visible
                 transition-all duration-200 z-50">
 
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100">
-        Liste des flottes
+      <a href="{{ path('app_suivi_index') }}" class="block px-4 py-2 hover:bg-gray-100">
+        Suivi des flottes
       </a>
 
       <a href="{{ path('app_chauffeur_index') }}" class="block px-4 py-2 hover:bg-gray-100">
@@ -62,7 +62,7 @@
           Véhicules
       </a>
 
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100">
+      <a href="{{ path('app_maintenance_index') }}" class="block px-4 py-2 hover:bg-gray-100">
         Maintenance
       </a>
 
